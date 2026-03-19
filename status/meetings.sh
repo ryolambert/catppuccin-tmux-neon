@@ -15,8 +15,10 @@ show_meetings() {
 
 ALERT_IF_IN_NEXT_MINUTES=10
 ALERT_POPUP_BEFORE_SECONDS=10
-NERD_FONT_FREE="󱁕"
-NERD_FONT_MEETING="󰤙"
+NERD_FONT_FREE="󰃯"    # nf-md-calendar_blank  — nothing happening
+NERD_FONT_MEETING="󰂚" # nf-md-bell_ring       — something needs attention
+CALENDAR_FILTER='-ic "Ryo - SQ Work Schedule,Outliant Dev/QA,Outliant & SQ PTO/Holiday Calendar"'
+CALENDARS="Ryo - SQ Work Schedule,Outliant Dev/QA,Outliant & SQ PTO/Holiday Calendar"
 
 get_attendees() {
 	attendees=$(
@@ -31,7 +33,7 @@ get_attendees() {
 		--separateByDate \
 		--excludeEndDates \
 		--bullet "" \
-		--excludeCals "training,omerxx@gmail.com" \
+		--includeCals "$CALENDARS" \
 		eventsToday)
 }
 
@@ -54,7 +56,7 @@ get_next_meeting() {
 		--excludeAllDayEvents \
 		--separateByDate \
 		--bullet "" \
-		--excludeCals "training,omerxx@gmail.com" \
+		--includeCals "$CALENDARS" \
 		eventsToday)
 }
 
@@ -107,7 +109,7 @@ display_popup() {
 			--includeOnlyEventsFromNowOn \
 			--limitItems 1 \
 			--excludeAllDayEvents \
-			--excludeCals "training" \
+			--includeCals "$CALENDARS" \
 			eventsToday
 }
 
